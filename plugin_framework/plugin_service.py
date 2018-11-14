@@ -9,7 +9,17 @@ class PluginService:
         return False
 
     def install(self, plugin):
-        self._plugins.append(plugin)
+        if plugin not in self._plugins:
+            self._plugins.append(plugin)
+            return True
+        return False
 
     def uninstall(self, plugin):
-        self._plugins.remove(plugin)
+        if plugin in self._plugins:
+            self._plugins.remove(plugin)
+            return True
+        return False
+
+    @property
+    def plugins(self):
+        return self._plugins
