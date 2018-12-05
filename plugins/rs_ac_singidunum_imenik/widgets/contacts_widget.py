@@ -1,6 +1,7 @@
 from PySide2 import QtWidgets
 from PySide2 import QtGui
 from ..contacts_model import ContactsModel
+from .dialogs.add_contact_dialog import AddContactDialog
 
 
 class ContactsWidget(QtWidgets.QWidget):
@@ -23,6 +24,7 @@ class ContactsWidget(QtWidgets.QWidget):
 
 
         self.open_contacts.clicked.connect(self._on_open)
+        self.add_button.clicked.connect(self._on_add)
         self.remove_button.clicked.connect(self._on_remove)
 
         self.vbox_layout.addLayout(self.hbox_layout)
@@ -43,7 +45,10 @@ class ContactsWidget(QtWidgets.QWidget):
         self.table_view.setModel(ContactsModel(path[0]))
 
     def _on_add(self):
-        pass
+        dialog = AddContactDialog(self.parent())
+        dialog.exec_()
+        self.table_view.model().add(dialog.get_data())
+
 
     def _on_edit(self):
         pass

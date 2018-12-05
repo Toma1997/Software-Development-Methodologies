@@ -34,6 +34,19 @@ class ContactsModel(QtCore.QAbstractTableModel):
             elif (section == 3) and (role == QtCore.Qt.DisplayRole):
                 return "Datum rodjenja"
 
+    def setData(self, index, value, role):
+        try:
+            self._data[index.row()][index.column()] = value
+            self.dataChanged()
+            return True
+        except:
+            return False
+
+    def flags(self, index):
+        if index.column() == 0:
+            return QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEditable
+        else:
+            return QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemIsSelectable
 
     def get_element(self, index : QtCore.QModelIndex):
         if index.isValid():
@@ -49,10 +62,13 @@ class ContactsModel(QtCore.QAbstractTableModel):
             del self._data[i]
             self.endRemoveRows()
 
+    def add(self, data : dict):
+        self.beginInsertRows(QtCore.QModelIndex(), len(self._data), len(self._data))
+        self._data.append([data["name"], data["surname"], data["email"], data["birthday"]])
+        self.endInsertRows()
+
     def load_data(self, path=""):
         with open(path, "r", encoding="utf-8") as fp:
-            loaded = list(csv.reader(fp))
-            print("LOADED", loaded)
-            self._data = loaded
+            self._data = list(csv.reader(fp))
 
 

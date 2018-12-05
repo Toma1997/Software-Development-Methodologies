@@ -29,7 +29,7 @@ class PluginDialog(QtWidgets.QDialog):
         self.button_box.accepted.connect(self.on_accept)
         self.button_box.rejected.connect(self.on_reject)
 
-        self.set_button.pressed.connect(self.on_set)
+        self.set_button.clicked.connect(self.on_set)
 
         self._populate_table()
 
