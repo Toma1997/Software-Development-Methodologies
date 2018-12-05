@@ -60,3 +60,6 @@ class MainWindow(QtWidgets.QMainWindow):
         dialog = PluginDialog("Plugin settings", self, self.plugin_service)
         dialog.exec_()
 
+    def set_central_widget(self, widget):
+        self.setCentralWidget(widget)
+

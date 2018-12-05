@@ -6,6 +6,9 @@ class PluginService:
     def __init__(self):
         self._plugins = list()
 
+    def get_by_symbolic_name(self, symbolic_name):
+        return list(filter(lambda x: x.symbolic_name == symbolic_name, self._plugins))[0]
+
     def set_enalbled(self, plugin, value):
         if plugin in self._plugins:
             plugin.enabled = value

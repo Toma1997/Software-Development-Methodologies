@@ -12,6 +12,7 @@ class PluginDialog(QtWidgets.QDialog):
 
         self.plugin_options_layout = QtWidgets.QHBoxLayout()
 
+        self.set_button = QtWidgets.QPushButton(QIcon("resources/icons/application-plus.png"), "Set as central")
         self.uninstall_button = QtWidgets.QPushButton(QIcon("resources/icons/minus-circle.png"), "Uninstall")
         self.enable_button = QtWidgets.QPushButton(QIcon("resources/icons/tick.png"), "Enable")
         self.disable_button = QtWidgets.QPushButton(QIcon("resources/icons/minus.png"), "Disable")
@@ -19,6 +20,7 @@ class PluginDialog(QtWidgets.QDialog):
 
         self.plugins_table = QtWidgets.QTableWidget(self)
 
+        self.plugin_options_layout.addWidget(self.set_button)
         self.plugin_options_layout.addWidget(self.uninstall_button)
         self.plugin_options_layout.addWidget(self.enable_button)
         self.plugin_options_layout.addWidget(self.disable_button)
@@ -27,6 +29,8 @@ class PluginDialog(QtWidgets.QDialog):
         self.button_box.accepted.connect(self.on_accept)
         self.button_box.rejected.connect(self.on_reject)
 
+        self.set_button.pressed.connect(self.on_set)
+
         self._populate_table()
 
         self.plugin_dialog_layout.addLayout(self.plugin_options_layout)
@@ -34,6 +38,10 @@ class PluginDialog(QtWidgets.QDialog):
         self.plugin_dialog_layout.addWidget(self.button_box)
 
         self.setLayout(self.plugin_dialog_layout)
+
+    def on_set(self):
+        # FIXME: dobavi selekciju i aktiviraj widget
+        self.parent().set_central_widget(self.parent().plugin_service.get_by_symbolic_name("rs.ac.singidunum.imenik").get_widget())
 
     def on_accept(self):
         return self.accept()
