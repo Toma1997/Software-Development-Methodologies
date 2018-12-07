@@ -13,7 +13,7 @@ class ContactsModel(QtCore.QAbstractTableModel):
         return len(self._data)
 
     def columnCount(self, index):
-        return 4
+        return 5
 
     def data(self, index, role):
         element = self.get_element(index)
@@ -32,10 +32,14 @@ class ContactsModel(QtCore.QAbstractTableModel):
             elif (section == 2) and (role == QtCore.Qt.DisplayRole):
                 return "Email"
             elif (section == 3) and (role == QtCore.Qt.DisplayRole):
+                return "Telefon"
+            elif (section == 4) and (role == QtCore.Qt.DisplayRole):
                 return "Datum rodjenja"
 
     def setData(self, index, value, role):
         try:
+            if value == "":
+                return False
             self._data[index.row()][index.column()] = value
             self.dataChanged()
             return True
@@ -43,9 +47,9 @@ class ContactsModel(QtCore.QAbstractTableModel):
             return False
 
     def flags(self, index):
-        if index.column() == 0:
+        if index.column() != 4: # ne damo da menja datum rodjenja (primera radi)
             return QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEditable
-        else:
+        else: # sve ostale podatke korisnik moze da menja
             return QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemIsSelectable
 
     def get_element(self, index : QtCore.QModelIndex):
@@ -64,7 +68,7 @@ class ContactsModel(QtCore.QAbstractTableModel):
 
     def add(self, data : dict):
         self.beginInsertRows(QtCore.QModelIndex(), len(self._data), len(self._data))
-        self._data.append([data["name"], data["surname"], data["email"], data["birthday"]])
+        self._data.append([data["name"], data["surname"], data["phone"], data["email"], data["birthday"]])
         self.endInsertRows()
 
     def load_data(self, path=""):

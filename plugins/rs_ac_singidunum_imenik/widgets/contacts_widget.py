@@ -11,11 +11,9 @@ class ContactsWidget(QtWidgets.QWidget):
         self.hbox_layout = QtWidgets.QHBoxLayout()
         self.open_contacts = QtWidgets.QPushButton(QtGui.QIcon("resources/icons/folder-open-document.png"), "Otvori", self)
         self.add_button = QtWidgets.QPushButton(QtGui.QIcon("resources/icons/plus.png"), "Dodaj", self)
-        self.edit_button = QtWidgets.QPushButton(QtGui.QIcon("resources/icons/pencil.png"), "Izmeni", self)
         self.remove_button = QtWidgets.QPushButton(QtGui.QIcon("resources/icons/minus.png"), "Obrisi", self)
         self.hbox_layout.addWidget(self.open_contacts)
         self.hbox_layout.addWidget(self.add_button)
-        self.hbox_layout.addWidget(self.edit_button)
         self.hbox_layout.addWidget(self.remove_button)
         self.table_view = QtWidgets.QTableView(self)
 
@@ -46,12 +44,9 @@ class ContactsWidget(QtWidgets.QWidget):
 
     def _on_add(self):
         dialog = AddContactDialog(self.parent())
-        dialog.exec_()
-        self.table_view.model().add(dialog.get_data())
-
-
-    def _on_edit(self):
-        pass
+        if dialog.exec_() == 1: # znaci da je neko odabrao potvrdni odgovor na dijalog
+            self.table_view.model().add(dialog.get_data())
+        # ako dialog.exec_() vrati 0, to znaci da je odbijena operacija (pritisnut je cancel)
 
     def _on_remove(self):
         self.table_view.model().remove(self.table_view.selectedIndexes())
