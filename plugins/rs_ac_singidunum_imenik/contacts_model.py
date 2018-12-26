@@ -75,4 +75,10 @@ class ContactsModel(QtCore.QAbstractTableModel):
         with open(path, "r", encoding="utf-8") as fp:
             self._data = list(csv.reader(fp))
 
+    def save_data(self, path=""):
+        with open(path, "w", encoding="utf-8") as fp:
+            writer = csv.writer(fp)
+            writer.writerows(self._data)
+
+
 

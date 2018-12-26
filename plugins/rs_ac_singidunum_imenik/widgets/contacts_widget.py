@@ -10,9 +10,11 @@ class ContactsWidget(QtWidgets.QWidget):
         self.vbox_layout = QtWidgets.QVBoxLayout()
         self.hbox_layout = QtWidgets.QHBoxLayout()
         self.open_contacts = QtWidgets.QPushButton(QtGui.QIcon("resources/icons/folder-open-document.png"), "Otvori", self)
+        self.save_contacts = QtWidgets.QPushButton(QtGui.QIcon("resources/icons/disk.png"), "Snimi", self)
         self.add_button = QtWidgets.QPushButton(QtGui.QIcon("resources/icons/plus.png"), "Dodaj", self)
         self.remove_button = QtWidgets.QPushButton(QtGui.QIcon("resources/icons/minus.png"), "Obrisi", self)
         self.hbox_layout.addWidget(self.open_contacts)
+        self.hbox_layout.addWidget(self.save_contacts)
         self.hbox_layout.addWidget(self.add_button)
         self.hbox_layout.addWidget(self.remove_button)
         self.table_view = QtWidgets.QTableView(self)
@@ -22,6 +24,7 @@ class ContactsWidget(QtWidgets.QWidget):
 
 
         self.open_contacts.clicked.connect(self._on_open)
+        self.save_contacts.clicked.connect(self._on_save)
         self.add_button.clicked.connect(self._on_add)
         self.remove_button.clicked.connect(self._on_remove)
 
@@ -41,6 +44,10 @@ class ContactsWidget(QtWidgets.QWidget):
     def _on_open(self):
         path = QtWidgets.QFileDialog.getOpenFileName(self, "Open contacts file", ".", "CSV Files (*.csv)")
         self.table_view.setModel(ContactsModel(path[0]))
+
+    def _on_save(self):
+        path = QtWidgets.QFileDialog.getSaveFileName(self, "Save contacts file", ".", "CSV Files (*.csv)")
+        self.table_view.model().save_data(path[0])
 
     def _on_add(self):
         dialog = AddContactDialog(self.parent())

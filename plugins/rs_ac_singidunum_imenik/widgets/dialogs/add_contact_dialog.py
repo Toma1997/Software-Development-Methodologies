@@ -16,14 +16,14 @@ class AddContactDialog(QtWidgets.QDialog):
         self.email_re = QtCore.QRegExp(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)", QtCore.Qt.CaseInsensitive)
         self.email_validator = QtGui.QRegExpValidator(self.email_re)
         self.email_input.setValidator(self.email_validator)
-        self.email_input.textChanged.connect(self.ajust_text_color)
+        self.email_input.textChanged.connect(self.adjust_text_color)
 
         self.birthday_input.setDate(QtCore.QDate.currentDate())
         self.birthday_input.setCalendarPopup(True)
         self.form_layout.addRow("Ime:", self.name_input)
         self.form_layout.addRow("Prezime:", self.surname_input)
-        self.form_layout.addRow("Email:", self.email_input)
         self.form_layout.addRow("Telefon:", self.phone_input)
+        self.form_layout.addRow("Email:", self.email_input)
         self.form_layout.addRow("Datum rodjenja:", self.birthday_input)
 
         self.vbox_layout.addLayout(self.form_layout)
@@ -34,7 +34,7 @@ class AddContactDialog(QtWidgets.QDialog):
 
         self.setLayout(self.vbox_layout)
 
-    def ajust_text_color(self):
+    def adjust_text_color(self):
         if not self.email_input.hasAcceptableInput():
             self.email_input.setStyleSheet("QLineEdit { color: red;}")
         else:
