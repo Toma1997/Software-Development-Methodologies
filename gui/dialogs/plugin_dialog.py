@@ -4,6 +4,17 @@ from PySide2.QtCore import Qt
 
 class PluginDialog(QtWidgets.QDialog):
     def __init__(self, title="Plugin settings", parent=None, plugin_service=None):
+        """
+        Inicijalizator dijaloga za podesavanje i prikaz pluginova.
+
+        :param title: naslov dijaloga.
+        :type title: str
+        :param parent: roditeljski widget dijaloga.
+        :type parent: QWidget
+        :param plugin_service: servis za pluginove
+        :type plugin_service: PluginService
+        """
+        # podesavanje dijaloga
         super().__init__(parent)
         self.setWindowTitle(title)
         self.resize(600, 400)
@@ -40,16 +51,28 @@ class PluginDialog(QtWidgets.QDialog):
         self.setLayout(self.plugin_dialog_layout)
 
     def on_set(self):
+        """
+        Metoda koja se poziva kada se pritisne na dugme set central.
+        """
         # FIXME: dobavi selekciju i aktiviraj widget
         self.parent().set_central_widget(self.parent().plugin_service.get_by_symbolic_name("rs.ac.singidunum.imenik").get_widget())
 
     def on_accept(self):
+        """
+        Metoda koja se poziva na prihvatanje dijaloga.
+        """
         return self.accept()
 
     def on_reject(self):
+        """
+        Metoda koja se poziva na odbijanje dijaloga.
+        """
         return self.reject()
 
     def _populate_table(self):
+        """
+        Populise tabelu metapodacima plugina.
+        """
         self.plugins_table.setColumnCount(5)
         self.plugins_table.setHorizontalHeaderLabels(
             ["Name", "Version", "Description", "Symbolic name", "Enabled"])

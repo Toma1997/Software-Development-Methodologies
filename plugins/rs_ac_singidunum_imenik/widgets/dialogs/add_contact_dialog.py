@@ -1,7 +1,16 @@
 from PySide2 import QtWidgets, QtCore, QtGui
 
 class AddContactDialog(QtWidgets.QDialog):
+    """
+    Dijalog za dodavanje novog kontakta u imenik.
+    """
     def __init__(self, parent=None):
+        """
+        Inicijalizator dijaloga za dodavanje novog kontakta u imenik.
+
+        :param parent: roditeljski widget.
+        :type parent: QWidget
+        """
         super().__init__(parent)
         self.setWindowTitle("Dodaj kontakt")
         self.vbox_layout = QtWidgets.QVBoxLayout()
@@ -35,12 +44,21 @@ class AddContactDialog(QtWidgets.QDialog):
         self.setLayout(self.vbox_layout)
 
     def adjust_text_color(self):
+        """
+        Metoda koja spram validnosti email inputa menja boju njegovog oboda i teksta.
+        Crveno kada je nevalidan input, crno kada je validan.
+        """
         if not self.email_input.hasAcceptableInput():
             self.email_input.setStyleSheet("QLineEdit { color: red;}")
         else:
             self.email_input.setStyleSheet("QLineEdit { color: black;}")
 
     def _on_accept(self):
+        """
+        Metoda koja se poziva kada se pritisne na dugme ok.
+        Prvo proverava popunjenost forme. Ukoliko neko polje nije popunjeno korisniku se 
+        prikazuje upozorenje.
+        """
         if self.name_input.text() == "":
             QtWidgets.QMessageBox.warning(self, 
             "Provera imena", "Ime mora biti popunjeno!", QtWidgets.QMessageBox.Ok)
@@ -55,6 +73,11 @@ class AddContactDialog(QtWidgets.QDialog):
             return
         self.accept()
     def get_data(self):
+        """
+        Dobavlja podatke iz forme.
+
+        :returns: dict -- recnik sa podacima iz forme.
+        """
         return {
             "name": self.name_input.text(),
             "surname": self.surname_input.text(),

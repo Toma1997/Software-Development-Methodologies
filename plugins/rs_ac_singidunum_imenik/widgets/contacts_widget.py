@@ -5,7 +5,16 @@ from .dialogs.add_contact_dialog import AddContactDialog
 
 
 class ContactsWidget(QtWidgets.QWidget):
+    """
+    Klasa koja predstavlja glavni widget plugina za kontakte.
+    """
     def __init__(self, parent=None):
+        """
+        Inicijalizator widgeta za kontakte.
+
+        :param parent: roditeljski widget.
+        :type parent: QWidget
+        """
         super().__init__(parent)
         self.vbox_layout = QtWidgets.QVBoxLayout()
         self.hbox_layout = QtWidgets.QHBoxLayout()
@@ -39,21 +48,40 @@ class ContactsWidget(QtWidgets.QWidget):
 
 
     def set_model(self, model):
+        """
+        Postavlja novi model na tabelarni prikaz.
+
+        :param model: model koji se prikazuje u tabeli.
+        :type model: ContactsModel
+        """
         self.table_view.setModel(model)
 
     def _on_open(self):
+        """
+        Metoda koja se poziva na klik dugmeta open.
+        """
         path = QtWidgets.QFileDialog.getOpenFileName(self, "Open contacts file", ".", "CSV Files (*.csv)")
         self.table_view.setModel(ContactsModel(path[0]))
 
     def _on_save(self):
+        """
+        Metoda koja se poziva na klik dugmeta save.
+        """
         path = QtWidgets.QFileDialog.getSaveFileName(self, "Save contacts file", ".", "CSV Files (*.csv)")
         self.table_view.model().save_data(path[0])
 
     def _on_add(self):
+        """
+        Metoda koja se poziva na klik dugmeta add.
+        Otvara dijalog sa formom za kreiranje novog korisnika u imeniku.
+        """
         dialog = AddContactDialog(self.parent())
-        if dialog.exec_() == 1: # znaci da je neko odabrao potvrdni odgovor na dijalog
+        # znaci da je neko odabrao potvrdni odgovor na dijalog
+        if dialog.exec_() == QtWidgets.QDialog.Accepted:
             self.table_view.model().add(dialog.get_data())
-        # ako dialog.exec_() vrati 0, to znaci da je odbijena operacija (pritisnut je cancel)
 
     def _on_remove(self):
+        """
+        Metoda koja se poziva na klik dugmeta remove.
+        """
         self.table_view.model().remove(self.table_view.selectedIndexes())

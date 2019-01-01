@@ -1,10 +1,23 @@
 class Plugin:
+    """
+    Ova klasa predstavlja osnovu za svaki konkretan plugin.
+    Klasa treba da je apstraktna (spram modela) ali ovde smo je realizovali kao konkretnu
+    kako bismo specificirali atribut _spec. U apstraktnim klasama u Pythonu ne postoji inicijalizator
+    pa samim tim, atribute na nivou objekta ne mozemo da definisemo drugacije sem kao metode (property),
+    tako da je ovo realizovano kao regularna klasa.
+    """
     def __init__(self, spec):
+        """
+        Inicijalizator plugina.
+
+        :param spec: recnik sa kljucevima (str) i vrednostima iz json datoteke
+        :type ps: dict
+        """
         self._spec = spec
 
     @property
     def symbolic_name(self):
-        return self._spec.get("symbolic_name", "ac.rs.singidunum.name")
+        return self._spec.get("symbolic_name", "rs.ac.singidunum.name")
 
     @symbolic_name.setter
     def symbolic_name(self, value):
