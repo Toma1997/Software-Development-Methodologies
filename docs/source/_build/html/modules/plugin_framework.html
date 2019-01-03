@@ -1,0 +1,279 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>plugin_framework package &#8212; Plugin framework 1.0.0 documentation</title>
+    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="plugins package" href="plugins.html" />
+    <link rel="prev" title="main module" href="main.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="plugins.html" title="plugins package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="main.html" title="main module"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Plugin framework 1.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" accesskey="U">sii-bg-mrs</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="plugin-framework-package">
+<h1>plugin_framework package<a class="headerlink" href="#plugin-framework-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-plugin_framework.plugin">
+<span id="plugin-framework-plugin-module"></span><h2>plugin_framework.plugin module<a class="headerlink" href="#module-plugin_framework.plugin" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="plugin_framework.plugin.Plugin">
+<em class="property">class </em><code class="descclassname">plugin_framework.plugin.</code><code class="descname">Plugin</code><span class="sig-paren">(</span><em>spec</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/plugin_framework/plugin.html#Plugin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plugin_framework.plugin.Plugin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Ova klasa predstavlja osnovu za svaki konkretan plugin.
+Klasa treba da je apstraktna (spram modela) ali ovde smo je realizovali kao konkretnu
+kako bismo specificirali atribut _spec. U apstraktnim klasama u Pythonu ne postoji inicijalizator
+pa samim tim, atribute na nivou objekta ne mozemo da definisemo drugacije sem kao metode (property),
+tako da je ovo realizovano kao regularna klasa.</p>
+<dl class="attribute">
+<dt id="plugin_framework.plugin.Plugin.category">
+<code class="descname">category</code><a class="headerlink" href="#plugin_framework.plugin.Plugin.category" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="plugin_framework.plugin.Plugin.description">
+<code class="descname">description</code><a class="headerlink" href="#plugin_framework.plugin.Plugin.description" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="plugin_framework.plugin.Plugin.enabled">
+<code class="descname">enabled</code><a class="headerlink" href="#plugin_framework.plugin.Plugin.enabled" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="plugin_framework.plugin.Plugin.name">
+<code class="descname">name</code><a class="headerlink" href="#plugin_framework.plugin.Plugin.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="plugin_framework.plugin.Plugin.size">
+<code class="descname">size</code><a class="headerlink" href="#plugin_framework.plugin.Plugin.size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="plugin_framework.plugin.Plugin.symbolic_name">
+<code class="descname">symbolic_name</code><a class="headerlink" href="#plugin_framework.plugin.Plugin.symbolic_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="plugin_framework.plugin.Plugin.version">
+<code class="descname">version</code><a class="headerlink" href="#plugin_framework.plugin.Plugin.version" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-plugin_framework.plugin_service">
+<span id="plugin-framework-plugin-service-module"></span><h2>plugin_framework.plugin_service module<a class="headerlink" href="#module-plugin_framework.plugin_service" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="plugin_framework.plugin_service.PluginService">
+<em class="property">class </em><code class="descclassname">plugin_framework.plugin_service.</code><code class="descname">PluginService</code><a class="reference internal" href="../_modules/plugin_framework/plugin_service.html#PluginService"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plugin_framework.plugin_service.PluginService" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Klasa koja manipulise nad prosirenjima (pluginovima) u prosirivom okviru.</p>
+<dl class="method">
+<dt id="plugin_framework.plugin_service.PluginService.get_by_symbolic_name">
+<code class="descname">get_by_symbolic_name</code><span class="sig-paren">(</span><em>symbolic_name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/plugin_framework/plugin_service.html#PluginService.get_by_symbolic_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plugin_framework.plugin_service.PluginService.get_by_symbolic_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Vraca plugin koji ima naziv symbolic_name. Ukoliko se podesi da vise pluginova ima isti symbolic_name, vraca
+se samo prvi.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>symbolic_name</strong> (<em>str</em>) – naziv spram kog pretrazujemo sve dostupne pluginove.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Plugin – pronadjeni plugin.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body">IndexError – ukoliko ne postoji ni jedan plugin koji je zadovoljio filter.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="plugin_framework.plugin_service.PluginService.install">
+<code class="descname">install</code><span class="sig-paren">(</span><em>plugin</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/plugin_framework/plugin_service.html#PluginService.install"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plugin_framework.plugin_service.PluginService.install" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dodaje plugin u instalirane. Isti plugin se ne moze dodati dva puta.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>plugin</strong> (<a class="reference internal" href="#plugin_framework.plugin.Plugin" title="plugin_framework.plugin.Plugin"><em>Plugin</em></a>) – instanca plugina kojeg dodajemo.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">bool – podatak o uspesnosti dodavanja.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="plugin_framework.plugin_service.PluginService.load_plugins">
+<code class="descname">load_plugins</code><span class="sig-paren">(</span><em>plugins_path='plugins'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/plugin_framework/plugin_service.html#PluginService.load_plugins"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plugin_framework.plugin_service.PluginService.load_plugins" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ucitava sve pluginove spram zadate lokacije. Nakon ucitavanja svih modula i pronalaska njihovih specifikacija,
+plugin se instalira u sistem.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>plugins_path</strong> (<em>str</em>) – putanja na kojoj se nalaze plugin paketi.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="plugin_framework.plugin_service.PluginService.plugins">
+<code class="descname">plugins</code><a class="headerlink" href="#plugin_framework.plugin_service.PluginService.plugins" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="plugin_framework.plugin_service.PluginService.set_enalbled">
+<code class="descname">set_enalbled</code><span class="sig-paren">(</span><em>plugin</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/plugin_framework/plugin_service.html#PluginService.set_enalbled"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plugin_framework.plugin_service.PluginService.set_enalbled" title="Permalink to this definition">¶</a></dt>
+<dd><p>Postavlja status aktivnosti plugina na zadatu vrednost.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>plugin</strong> (<a class="reference internal" href="#plugin_framework.plugin.Plugin" title="plugin_framework.plugin.Plugin"><em>Plugin</em></a>) – instanca plugina kojem menjamo status.</li>
+<li><strong>value</strong> (<em>bool</em>) – nova vrednost statusa</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">bool – podatak o uspesnosti promene.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="plugin_framework.plugin_service.PluginService.uninstall">
+<code class="descname">uninstall</code><span class="sig-paren">(</span><em>plugin</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/plugin_framework/plugin_service.html#PluginService.uninstall"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plugin_framework.plugin_service.PluginService.uninstall" title="Permalink to this definition">¶</a></dt>
+<dd><p>Brise plugin u instalirane. Isti plugin se ne moze brisati dva puta.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>plugin</strong> (<a class="reference internal" href="#plugin_framework.plugin.Plugin" title="plugin_framework.plugin.Plugin"><em>Plugin</em></a>) – instanca plugina kojeg brisemo.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">bool – podatak o uspesnosti brisanja.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-plugin_framework">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-plugin_framework" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">plugin_framework package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-plugin_framework.plugin">plugin_framework.plugin module</a></li>
+<li><a class="reference internal" href="#module-plugin_framework.plugin_service">plugin_framework.plugin_service module</a></li>
+<li><a class="reference internal" href="#module-plugin_framework">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="main.html"
+                        title="previous chapter">main module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="plugins.html"
+                        title="next chapter">plugins package</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/modules/plugin_framework.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="plugins.html" title="plugins package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="main.html" title="main module"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Plugin framework 1.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" >sii-bg-mrs</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Aleksandra Mitrovic.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.3.
+    </div>
+  </body>
+</html>

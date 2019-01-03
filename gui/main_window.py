@@ -4,15 +4,15 @@ from gui.dialogs.plugin_dialog import PluginDialog
 
 class MainWindow(QtWidgets.QMainWindow):
     """
-    Klasa koja predstavlja glavni prozor aplikacije
+    Klasa koja predstavlja glavni prozor aplikacije.
     """
     def __init__(self, ps, parent: QtWidgets.QWidget=None):
         """
         Inicijalizator glavnog prozora
 
-        :param ps: plugin servis koji nam obezbedjuje operacije nad pluginovima
+        :param ps: plugin servis koji nam obezbedjuje operacije nad pluginovima.
         :type ps: PluginService
-        :param parent: roditelj glavnog prozora (default: None)
+        :param parent: roditelj glavnog prozora (default: None).
         :type parent: QWidget
         """
         # pozivanje super inicijalizatora

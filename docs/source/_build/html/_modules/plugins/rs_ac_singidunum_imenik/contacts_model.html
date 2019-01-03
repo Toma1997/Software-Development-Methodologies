@@ -1,0 +1,279 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>plugins.rs_ac_singidunum_imenik.contacts_model &#8212; Plugin framework 1.0.0 documentation</title>
+    <link rel="stylesheet" href="../../../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Plugin framework 1.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for plugins.rs_ac_singidunum_imenik.contacts_model</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">PySide2</span> <span class="k">import</span> <span class="n">QtCore</span>
+<span class="kn">import</span> <span class="nn">csv</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+
+<div class="viewcode-block" id="ContactsModel"><a class="viewcode-back" href="../../../modules/plugins.rs_ac_singidunum_imenik.html#plugins.rs_ac_singidunum_imenik.contacts_model.ContactsModel">[docs]</a><span class="k">class</span> <span class="nc">ContactsModel</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QAbstractTableModel</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Klasa koja predstavlja specijalizaciju QAbstractTableModel-a.</span>
+<span class="sd">    Koristimo tabelarni model, jer cemo podatke posmatrati kao tabelu, i u tabeli ih prikazivati.</span>
+<span class="sd">    Svaki tabelarni model ima redove i kolone. Red je jedan korisnik u imeniku, a kolone predstavalju</span>
+<span class="sd">    korisnikove pojedinacne podatke, poput imena, prezimena itd.</span>
+<span class="sd">    Datoteka na osnovu koje se populise model je CSV datoteka, gde su redovi modela zapravo redovi</span>
+<span class="sd">    iz datoteke, a kolone modela, su podaci koji su u redu u datoteci odvojeni separatorom (zarezom).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Inicijalizator modela za kontakte.</span>
+<span class="sd">        Pri inicijalizaciji se na osnovu datoteke sa putanje path ucitavaju i populise se model.</span>
+
+<span class="sd">        :param path: putanja do datoteke u kojoj su smesteni podaci.</span>
+<span class="sd">        :type path: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="c1"># matrica, redovi su liste, a unutar tih listi se nalaze pojedinacni podaci o korisniku iz imenika</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ContactsModel.rowCount"><a class="viewcode-back" href="../../../modules/plugins.rs_ac_singidunum_imenik.html#plugins.rs_ac_singidunum_imenik.contacts_model.ContactsModel.rowCount">[docs]</a>    <span class="k">def</span> <span class="nf">rowCount</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Vraca broj redova u modelu.</span>
+
+<span class="sd">        :param index: putanja do datoteke u kojoj su smesteni podaci.</span>
+<span class="sd">        :type index: QModelIndex</span>
+<span class="sd">        :returns: int -- broj redova modela.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ContactsModel.columnCount"><a class="viewcode-back" href="../../../modules/plugins.rs_ac_singidunum_imenik.html#plugins.rs_ac_singidunum_imenik.contacts_model.ContactsModel.columnCount">[docs]</a>    <span class="k">def</span> <span class="nf">columnCount</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Vraca broj kolona u modelu. Posto znamo da nas korisnik iz imenika je opisan sa pet</span>
+<span class="sd">        podataka, vracamo fiksni broj kolona na osnovu datoteke.</span>
+
+<span class="sd">        :param index: indeks elementa modela.</span>
+<span class="sd">        :type index: QModelIndex</span>
+<span class="sd">        :returns: int -- broj kolona modela.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="mi">5</span></div>
+
+<div class="viewcode-block" id="ContactsModel.data"><a class="viewcode-back" href="../../../modules/plugins.rs_ac_singidunum_imenik.html#plugins.rs_ac_singidunum_imenik.contacts_model.ContactsModel.data">[docs]</a>    <span class="k">def</span> <span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">role</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Vraca podatak smesten na datom indeksu sa datom ulogom.</span>
+
+<span class="sd">        :param index: indeks elementa modela.</span>
+<span class="sd">        :type index: QModelIndex</span>
+<span class="sd">        :param role: putanja do datoteke u kojoj su smesteni podaci.</span>
+<span class="sd">        :type role: QtCore.Qt.XXXRole (gde je XXX konkretna uloga)</span>
+<span class="sd">        :returns: object -- podatak koji se nalazi na zadatom indeksu sa zadatom ulogom.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_element</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">element</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="n">role</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">DisplayRole</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">element</span></div>
+    
+<div class="viewcode-block" id="ContactsModel.headerData"><a class="viewcode-back" href="../../../modules/plugins.rs_ac_singidunum_imenik.html#plugins.rs_ac_singidunum_imenik.contacts_model.ContactsModel.headerData">[docs]</a>    <span class="k">def</span> <span class="nf">headerData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">,</span> <span class="n">orientation</span><span class="p">,</span> <span class="n">role</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Vraca podatak koji ce popuniti sekciju zaglavlja tabele.</span>
+
+<span class="sd">        :param section: sekcija koja u zavisnosti od orijentacije predstavlja redni broj kolone ili reda.</span>
+<span class="sd">        :type section: int</span>
+<span class="sd">        :param orientation: odredjuje polozaj zaglavlja.</span>
+<span class="sd">        :type orientation: QtCore.Qt.Vertical ili QtCore.Qt.Horizontal</span>
+<span class="sd">        :param role: putanja do datoteke u kojoj su smesteni podaci.</span>
+<span class="sd">        :type role: QtCore.Qt.XXXRole (gde je XXX konkretna uloga)</span>
+<span class="sd">        :returns: str -- naziv sekcije zaglavlja.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">orientation</span> <span class="o">!=</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">Vertical</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">section</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">role</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">DisplayRole</span><span class="p">):</span>
+                <span class="k">return</span> <span class="s2">&quot;Ime&quot;</span>
+            <span class="k">elif</span> <span class="p">(</span><span class="n">section</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">role</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">DisplayRole</span><span class="p">):</span>
+                <span class="k">return</span> <span class="s2">&quot;Prezime&quot;</span>
+            <span class="k">elif</span> <span class="p">(</span><span class="n">section</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">role</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">DisplayRole</span><span class="p">):</span>
+                <span class="k">return</span> <span class="s2">&quot;Email&quot;</span>
+            <span class="k">elif</span> <span class="p">(</span><span class="n">section</span> <span class="o">==</span> <span class="mi">3</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">role</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">DisplayRole</span><span class="p">):</span>
+                <span class="k">return</span> <span class="s2">&quot;Telefon&quot;</span>
+            <span class="k">elif</span> <span class="p">(</span><span class="n">section</span> <span class="o">==</span> <span class="mi">4</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">role</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">DisplayRole</span><span class="p">):</span>
+                <span class="k">return</span> <span class="s2">&quot;Datum rodjenja&quot;</span></div>
+
+<div class="viewcode-block" id="ContactsModel.setData"><a class="viewcode-back" href="../../../modules/plugins.rs_ac_singidunum_imenik.html#plugins.rs_ac_singidunum_imenik.contacts_model.ContactsModel.setData">[docs]</a>    <span class="k">def</span> <span class="nf">setData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">role</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Postavlja vrednost na zadatom indeksu.</span>
+<span class="sd">        Ova metoda je vazna ako zelimo da nas model moze da se menja.</span>
+
+<span class="sd">        :param index: indeks elementa modela.</span>
+<span class="sd">        :type index: QModelIndex</span>
+<span class="sd">        :param value: nova vrednost koju zelimo da postavimo.</span>
+<span class="sd">        :type value: str -- vrednost koja ce biti dodeljena, za sada radimo samo sa stringovima</span>
+<span class="sd">        :param role: putanja do datoteke u kojoj su smesteni podaci.</span>
+<span class="sd">        :type role: QtCore.Qt.XXXRole (gde je XXX konkretna uloga)</span>
+<span class="sd">        :returns: bool -- podatak o uspesnosti izmene.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">index</span><span class="o">.</span><span class="n">row</span><span class="p">()][</span><span class="n">index</span><span class="o">.</span><span class="n">column</span><span class="p">()]</span> <span class="o">=</span> <span class="n">value</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dataChanged</span><span class="p">()</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="ContactsModel.flags"><a class="viewcode-back" href="../../../modules/plugins.rs_ac_singidunum_imenik.html#plugins.rs_ac_singidunum_imenik.contacts_model.ContactsModel.flags">[docs]</a>    <span class="k">def</span> <span class="nf">flags</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Vraca flagove koji su aktivni za dati indeks modela.</span>
+<span class="sd">        Ova metoda je vazna ako zelimo da nas model moze da se menja.</span>
+
+<span class="sd">        :param index: indeks elementa modela.</span>
+<span class="sd">        :type index: QModelIndex</span>
+<span class="sd">        :returns: object -- flagovi koji treba da budu aktivirani.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># ne damo da menja datum rodjenja (primera radi)</span>
+        <span class="k">if</span> <span class="n">index</span><span class="o">.</span><span class="n">column</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">4</span><span class="p">:</span> 
+            <span class="k">return</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemIsEnabled</span> <span class="o">|</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemIsSelectable</span> <span class="o">|</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemIsEditable</span>
+        <span class="c1"># sve ostale podatke korisnik moze da menja</span>
+        <span class="k">else</span><span class="p">:</span> 
+            <span class="k">return</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemIsEnabled</span> <span class="o">|</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemIsSelectable</span></div>
+
+<div class="viewcode-block" id="ContactsModel.get_element"><a class="viewcode-back" href="../../../modules/plugins.rs_ac_singidunum_imenik.html#plugins.rs_ac_singidunum_imenik.contacts_model.ContactsModel.get_element">[docs]</a>    <span class="k">def</span> <span class="nf">get_element</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span> <span class="p">:</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QModelIndex</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Dobavlja podatak smesten na zadatom indeksu, ako je indeks validan.</span>
+<span class="sd">        Pomocna metoda nase klase.</span>
+
+<span class="sd">        :param index: indeks elementa modela.</span>
+<span class="sd">        :type index: QModelIndex</span>
+<span class="sd">        :returns: object -- vrednost na indeksu.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">index</span><span class="o">.</span><span class="n">isValid</span><span class="p">():</span>
+            <span class="n">element</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">index</span><span class="o">.</span><span class="n">row</span><span class="p">()][</span><span class="n">index</span><span class="o">.</span><span class="n">column</span><span class="p">()]</span>
+            <span class="k">if</span> <span class="n">element</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">element</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="ContactsModel.remove"><a class="viewcode-back" href="../../../modules/plugins.rs_ac_singidunum_imenik.html#plugins.rs_ac_singidunum_imenik.contacts_model.ContactsModel.remove">[docs]</a>    <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indices</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Uklanja elemente iz modela na zadatim indeksima. Mozemo uklanjati vise redova (korisnika) iz imenika</span>
+<span class="sd">        u jednom pozivu metode.</span>
+<span class="sd">        Pomocna metoda nase klase.</span>
+
+<span class="sd">        :param indices: indeks elementa modela.</span>
+<span class="sd">        :type indices: list -- lista QModelIndex-a.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># za na osnovu indeksa, dobijamo njihove redove, posto za jedan red je vezano pet indeksa (za kolone)</span>
+        <span class="c1"># pravimo skup koji ce dati samo jedinstvene brojeve redova</span>
+        <span class="c1"># uklanjanje vrsimo od nazad, jer ne zelimo da nam brojevi redova nakon uklanjanja odu van opsega.</span>
+        <span class="n">indices</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">row</span><span class="p">(),</span> <span class="n">indices</span><span class="p">)),</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">beginRemoveRows</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QModelIndex</span><span class="p">(),</span> <span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">endRemoveRows</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ContactsModel.add"><a class="viewcode-back" href="../../../modules/plugins.rs_ac_singidunum_imenik.html#plugins.rs_ac_singidunum_imenik.contacts_model.ContactsModel.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span> <span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Dodaje novog korisnika (red matrice) u model.</span>
+<span class="sd">        Pomocna metoda nase klase.</span>
+
+<span class="sd">        :param data: indeks elementa modela.</span>
+<span class="sd">        :type data: dict -- podaci o novom korisniku.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">beginInsertRows</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QModelIndex</span><span class="p">(),</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;surname&quot;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;phone&quot;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;email&quot;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;birthday&quot;</span><span class="p">]])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">endInsertRows</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ContactsModel.load_data"><a class="viewcode-back" href="../../../modules/plugins.rs_ac_singidunum_imenik.html#plugins.rs_ac_singidunum_imenik.contacts_model.ContactsModel.load_data">[docs]</a>    <span class="k">def</span> <span class="nf">load_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Ucitava podatke iz CSV datoteke na zadatoj path putanji uz pomoc CSV reader-a.</span>
+<span class="sd">        Pomocna metoda nase klase.</span>
+
+<span class="sd">        :param path: putanja do CSV datoteke.</span>
+<span class="sd">        :type path: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="n">fp</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="ContactsModel.save_data"><a class="viewcode-back" href="../../../modules/plugins.rs_ac_singidunum_imenik.html#plugins.rs_ac_singidunum_imenik.contacts_model.ContactsModel.save_data">[docs]</a>    <span class="k">def</span> <span class="nf">save_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Zapisuje podatke iz modela u datoteku na zadatoj path putanji uz pomoc CSV writer-a.</span>
+<span class="sd">        Pomocna metoda nase klase.</span>
+
+<span class="sd">        :param path: putanja do CSV datoteke.</span>
+<span class="sd">        :type path: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+            <span class="n">writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span>
+            <span class="n">writer</span><span class="o">.</span><span class="n">writerows</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">)</span></div></div>
+
+
+
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Plugin framework 1.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Aleksandra Mitrovic.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.3.
+    </div>
+  </body>
+</html>

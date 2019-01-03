@@ -1,0 +1,307 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>gui.main_window &mdash; Plugin framework 1.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Plugin framework
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/modules.html">sii-bg-mrs</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Plugin framework</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>gui.main_window</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for gui.main_window</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">PySide2</span> <span class="k">import</span> <span class="n">QtWidgets</span>
+<span class="kn">from</span> <span class="nn">PySide2.QtGui</span> <span class="k">import</span> <span class="n">QIcon</span>
+<span class="kn">from</span> <span class="nn">gui.dialogs.plugin_dialog</span> <span class="k">import</span> <span class="n">PluginDialog</span>
+
+<div class="viewcode-block" id="MainWindow"><a class="viewcode-back" href="../../modules/gui.html#gui.main_window.MainWindow">[docs]</a><span class="k">class</span> <span class="nc">MainWindow</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMainWindow</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Klasa koja predstavlja glavni prozor aplikacije.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ps</span><span class="p">,</span> <span class="n">parent</span><span class="p">:</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QWidget</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Inicijalizator glavnog prozora</span>
+
+<span class="sd">        :param ps: plugin servis koji nam obezbedjuje operacije nad pluginovima.</span>
+<span class="sd">        :type ps: PluginService</span>
+<span class="sd">        :param parent: roditelj glavnog prozora (default: None).</span>
+<span class="sd">        :type parent: QWidget</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># pozivanje super inicijalizatora</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span> 
+        <span class="c1"># podesavanje naslova prozora</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s2">&quot;Univerzitet Singidunum&quot;</span><span class="p">)</span> 
+        <span class="c1"># menjanje velicine prozora</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span> 
+        <span class="c1"># postavljanje ikonice prozora</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowIcon</span><span class="p">(</span><span class="n">QIcon</span><span class="p">(</span><span class="s2">&quot;resources/icons/abacus.png&quot;</span><span class="p">))</span> 
+        <span class="c1"># cuvanje atributa za plugin servis</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plugin_service</span> <span class="o">=</span> <span class="n">ps</span>
+        <span class="c1"># atribut za cuvanje svih akcija u sistemu, ideja je da ove akcije mogu da se dele sa drugim widget-ima</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">action_dict</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;open&quot;</span><span class="p">:</span>  <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QAction</span><span class="p">(</span><span class="n">QIcon</span><span class="p">(</span><span class="s2">&quot;resources/icons/folder-open-document.png&quot;</span><span class="p">),</span> <span class="s2">&quot;&amp;Open document&quot;</span><span class="p">),</span>
+            <span class="s2">&quot;plugin_settings&quot;</span><span class="p">:</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QAction</span><span class="p">(</span><span class="n">QIcon</span><span class="p">(</span><span class="s2">&quot;resources/icons/puzzle.png&quot;</span><span class="p">),</span> <span class="s2">&quot;&amp;Plugin settings&quot;</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="c1"># atribut za meni</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">menu_bar</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMenuBar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="c1"># atribut za toolbar</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tool_bar</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QToolBar</span><span class="p">(</span><span class="s2">&quot;Toolbar&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="c1"># pojedinacni meniji</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">file_menu</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMenu</span><span class="p">(</span><span class="s2">&quot;&amp;File&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">menu_bar</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">view_menu</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMenu</span><span class="p">(</span><span class="s2">&quot;&amp;View&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">menu_bar</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tools_menu</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMenu</span><span class="p">(</span><span class="s2">&quot;&amp;Tools&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">menu_bar</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">help_menu</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMenu</span><span class="p">(</span><span class="s2">&quot;&amp;Help&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">menu_bar</span><span class="p">)</span>
+        <span class="c1"># centralni widget je mesto deo glavnog prozora u koji treba da se smesti glavni widget aplikacije</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">central_widget</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QTextEdit</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="c1"># pozivanje sopstvenih privatnih metoda</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_bind_actions</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_populate_menu_bar</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_populate_tool_bar</span><span class="p">()</span>
+
+        <span class="c1"># postavljanje centralnog widgeta i postavljanje toolbara i menija</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setCentralWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">central_widget</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">addToolBar</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tool_bar</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setMenuBar</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">menu_bar</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_populate_menu_bar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Populise akcije u menije</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">file_menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">action_dict</span><span class="p">[</span><span class="s2">&quot;open&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">view_menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tool_bar</span><span class="o">.</span><span class="n">toggleViewAction</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tools_menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">action_dict</span><span class="p">[</span><span class="s2">&quot;plugin_settings&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">menu_bar</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_menu</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">menu_bar</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">view_menu</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">menu_bar</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tools_menu</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">menu_bar</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">help_menu</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_populate_tool_bar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Populise akcije u toolbar</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tool_bar</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">action_dict</span><span class="p">[</span><span class="s2">&quot;open&quot;</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="nf">_bind_actions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Uvezuje akcije sa funkcijama koje se izvrsavaju na njihovo okidanje.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">action_dict</span><span class="p">[</span><span class="s2">&quot;open&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">on_open</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">action_dict</span><span class="p">[</span><span class="s2">&quot;plugin_settings&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">on_open_plugin_settings_dialog</span><span class="p">)</span>
+
+<div class="viewcode-block" id="MainWindow.on_open"><a class="viewcode-back" href="../../modules/gui.html#gui.main_window.MainWindow.on_open">[docs]</a>    <span class="k">def</span> <span class="nf">on_open</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Kreira sistemski dialog za otvaranje fajlova i podesava sadrzaj tekstualnog editora, ucitanim tekstom.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">file_name</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QFileDialog</span><span class="o">.</span><span class="n">getOpenFileName</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;Open python file&quot;</span><span class="p">,</span> <span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="s2">&quot;Python Files (*.py)&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_name</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+            <span class="n">text_from_file</span> <span class="o">=</span> <span class="n">fp</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">central_widget</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">text_from_file</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MainWindow.on_open_plugin_settings_dialog"><a class="viewcode-back" href="../../modules/gui.html#gui.main_window.MainWindow.on_open_plugin_settings_dialog">[docs]</a>    <span class="k">def</span> <span class="nf">on_open_plugin_settings_dialog</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Kreira dialog za podesavanje pluginova, kako bi se nad njima mogla vrsiti manipulacija.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">dialog</span> <span class="o">=</span> <span class="n">PluginDialog</span><span class="p">(</span><span class="s2">&quot;Plugin settings&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugin_service</span><span class="p">)</span>
+        <span class="n">dialog</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="MainWindow.set_central_widget"><a class="viewcode-back" href="../../modules/gui.html#gui.main_window.MainWindow.set_central_widget">[docs]</a>    <span class="k">def</span> <span class="nf">set_central_widget</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">widget</span><span class="p">:</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QWidget</span><span class="p">,</span> <span class="n">tool_bar</span><span class="p">:</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QToolBar</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">menu</span><span class="p">:</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMenu</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Podesava centralni widget glavnog prozora, ukoliko widget dostavi i svoj toolbar i meni</span>
+<span class="sd">        oni se dodaju u glavni prozor aplikacije.</span>
+
+<span class="sd">        :param widget: widget koji ce biti smesten kao centralni u glavnom prozoru</span>
+<span class="sd">        :type widget: QWidget</span>
+<span class="sd">        :param tool_bar: toolbar centralnog widgeta koji je plugin (default: None)</span>
+<span class="sd">        :type tool_bar: QToolbar</span>
+<span class="sd">        :param menu: meni centralnog widgeta koji je plugin (default: None)</span>
+<span class="sd">        :type menu: QMenu</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setCentralWidget</span><span class="p">(</span><span class="n">widget</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tool_bar</span><span class="o">.</span><span class="n">addActions</span><span class="p">(</span><span class="n">tool_bar</span><span class="o">.</span><span class="n">actions</span><span class="p">())</span> <span class="k">if</span> <span class="n">tool_bar</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">menu_bar</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="n">menu</span><span class="p">)</span> <span class="k">if</span> <span class="n">menu</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span></div></div>
+
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Aleksandra Mitrovic
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

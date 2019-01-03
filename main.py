@@ -5,7 +5,7 @@ import sys
 from PySide2 import QtWidgets
 from PySide2.QtGui import QIcon
 from gui.main_window import MainWindow
-                                                     
+                                     
 if __name__ == "__main__":
     # instanciramo plugin servis
     plugin_service = PluginService() 

@@ -1,0 +1,6 @@
+<map id="inheritance4788dfec74" name="inheritance4788dfec74">
+<area shape="rect" id="node1" href="#plugin_framework.plugin.Plugin" target="_top" title=".. inheritance&#45;diagram:: plugin_framework.plugin.Plugin plugins.rs_ac_singidunum_prvi.plugin.Main plugins.rs_ac_singidunum_drugi.plugin.Main plugins.rs_ac_singidunum_imenik.plugin.Main" alt="" coords="312,4,463,21"/>
+<area shape="rect" id="node2" href="plugins.rs_ac_singidunum_drugi.html#plugins.rs_ac_singidunum_drugi.plugin.Main" target="_top" title="Primer drugog plugina." alt="" coords="4,55,213,72"/>
+<area shape="rect" id="node3" href="plugins.rs_ac_singidunum_imenik.html#plugins.rs_ac_singidunum_imenik.plugin.Main" target="_top" title="Klasa koja predstavlja konkretni plugin. Nasledjujemo &quot;apstraktnu&quot; klasu Plugin." alt="" coords="280,55,495,72"/>
+<area shape="rect" id="node4" href="plugins.rs_ac_singidunum_prvi.html#plugins.rs_ac_singidunum_prvi.plugin.Main" target="_top" title="Primer prvog plugina." alt="" coords="562,55,764,72"/>
+</map>

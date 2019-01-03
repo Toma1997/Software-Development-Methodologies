@@ -3,6 +3,9 @@ import json
 import importlib
 
 class PluginService:
+    """
+    Klasa koja manipulise nad prosirenjima (pluginovima) u prosirivom okviru.
+    """
     def __init__(self):
         """
         Inicijalizator servisne klase za pluginove.

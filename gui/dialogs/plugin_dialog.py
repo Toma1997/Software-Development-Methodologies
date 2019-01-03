@@ -3,6 +3,9 @@ from PySide2.QtGui import QIcon
 from PySide2.QtCore import Qt
 
 class PluginDialog(QtWidgets.QDialog):
+    """
+    Klasa koja predstavlja dialog u kojem se vrsi manipulacija nad prosirenjima.
+    """
     def __init__(self, title="Plugin settings", parent=None, plugin_service=None):
         """
         Inicijalizator dijaloga za podesavanje i prikaz pluginova.

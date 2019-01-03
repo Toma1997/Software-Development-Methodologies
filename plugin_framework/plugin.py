@@ -1,5 +1,7 @@
 class Plugin:
     """
+    .. inheritance-diagram:: plugin_framework.plugin.Plugin plugins.rs_ac_singidunum_prvi.plugin.Main plugins.rs_ac_singidunum_drugi.plugin.Main plugins.rs_ac_singidunum_imenik.plugin.Main
+
     Ova klasa predstavlja osnovu za svaki konkretan plugin.
     Klasa treba da je apstraktna (spram modela) ali ovde smo je realizovali kao konkretnu
     kako bismo specificirali atribut _spec. U apstraktnim klasama u Pythonu ne postoji inicijalizator
@@ -17,6 +19,9 @@ class Plugin:
 
     @property
     def symbolic_name(self):
+        """
+        Property za dobavljanje simbolickog imena iz metapodataka specifikacije.
+        """
         return self._spec.get("symbolic_name", "rs.ac.singidunum.name")
 
     @symbolic_name.setter
@@ -25,6 +30,9 @@ class Plugin:
     
     @property
     def name(self):
+        """
+        Property za dobavljanje imena iz metapodataka specifikacije.
+        """
         return self._spec.get("name", "")
 
     @name.setter
@@ -33,6 +41,9 @@ class Plugin:
     
     @property
     def size(self):
+        """
+        Property za dobavljanje velicine iz metapodataka specifikacije.
+        """
         return self._spec.get("size", 0)
 
     @size.setter
@@ -41,6 +52,9 @@ class Plugin:
     
     @property
     def category(self):
+        """
+        Property za dobavljanje kategorije iz metapodataka specifikacije.
+        """
         return self._spec.get("category", "cat1")
 
     @category.setter
@@ -49,6 +63,9 @@ class Plugin:
 
     @property
     def version(self):
+        """
+        Property za dobavljanje verzije iz metapodataka specifikacije.
+        """
         return self._spec.get("version", "1.0.0")
     
     @version.setter
@@ -57,6 +74,9 @@ class Plugin:
 
     @property
     def enabled(self):
+        """
+        Property za dobavljanje podatka o dostupnosti iz metapodataka specifikacije.
+        """
         return self._spec.get("enabled", False)
 
     @enabled.setter
@@ -65,6 +85,9 @@ class Plugin:
 
     @property
     def description(self):
+        """
+        Property za dobavljanje opisa iz metapodataka specifikacije.
+        """
         return self._spec.get("description", "")
     
     @description.setter
