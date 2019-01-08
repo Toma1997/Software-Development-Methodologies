@@ -61,7 +61,7 @@ class ContactsWidget(QtWidgets.QWidget):
         Metoda koja se poziva na klik dugmeta open.
         """
         path = QtWidgets.QFileDialog.getOpenFileName(self, "Open contacts file", ".", "CSV Files (*.csv)")
-        self.table_view.setModel(ContactsModel(path[0]))
+        self.set_model(ContactsModel(path[0]))
 
     def _on_save(self):
         """

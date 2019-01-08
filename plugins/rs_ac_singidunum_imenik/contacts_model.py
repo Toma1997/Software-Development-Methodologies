@@ -81,9 +81,9 @@ class ContactsModel(QtCore.QAbstractTableModel):
             elif (section == 1) and (role == QtCore.Qt.DisplayRole):
                 return "Prezime"
             elif (section == 2) and (role == QtCore.Qt.DisplayRole):
-                return "Email"
-            elif (section == 3) and (role == QtCore.Qt.DisplayRole):
                 return "Telefon"
+            elif (section == 3) and (role == QtCore.Qt.DisplayRole):
+                return "Email"
             elif (section == 4) and (role == QtCore.Qt.DisplayRole):
                 return "Datum rodjenja"
 

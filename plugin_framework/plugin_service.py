@@ -24,7 +24,7 @@ class PluginService:
         """
         return list(filter(lambda x: x.symbolic_name == symbolic_name, self._plugins))[0]
 
-    def set_enalbled(self, plugin, value):
+    def set_enabled(self, plugin, value):
         """
         Postavlja status aktivnosti plugina na zadatu vrednost.
 
