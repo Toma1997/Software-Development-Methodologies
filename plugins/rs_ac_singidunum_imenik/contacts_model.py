@@ -179,7 +179,7 @@ class ContactsModel(QtCore.QAbstractTableModel):
         :type path: str
         """
         with open(path, "r", encoding="utf-8") as fp:
-            self._data = list(csv.reader(fp))
+            self._data = list(csv.reader(fp, dialect=csv.unix_dialect))
 
     def save_data(self, path=""):
         """
@@ -190,8 +190,7 @@ class ContactsModel(QtCore.QAbstractTableModel):
         :type path: str
         """
         with open(path, "w", encoding="utf-8") as fp:
-            writer = csv.writer(fp)
-            writer.writerows(self._data)
-
-
-
+            writer = csv.writer(fp, dialect=csv.unix_dialect)
+            for row in self._data:
+                writer.writerow(row)
+            #writer.writerows(self._data)

@@ -93,4 +93,13 @@ class Plugin:
     @description.setter
     def description(self, value):
         self._spec["description"] = value
+
+    def get_widget(self, parent=None):
+        """
+        Ova metoda treba da vraca konkretni widget koji ce biti smesten u centralni deo aplikacije i njenog 
+        glavnog prozora. Može da vrati toolbar, kao i meni, koji će biti smešten u samu aplikaciju.
+        Treba da vrati widget, toolbar, menu. Ukoliko su ne postoji dodatni toolbar ili meni, potrebno je za njih
+        vratiti None.
+        """
+        raise NotImplementedError("Ova metoda metoda mora biti realizovana u podklasi!")
     

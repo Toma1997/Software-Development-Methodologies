@@ -7,5 +7,5 @@ class Main(Plugin):
     def __init__(self, spec):
         super().__init__(spec)
 
-    def hello(self):
-        print("Hello world (second)!")
+    def get_widget(self, parent=None):
+        return None, None, None

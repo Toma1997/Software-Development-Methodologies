@@ -92,20 +92,21 @@ class MainWindow(QtWidgets.QMainWindow):
         dialog = PluginDialog("Plugin settings", self, self.plugin_service)
         dialog.exec_()
 
-    def set_central_widget(self, widget: QtWidgets.QWidget, tool_bar: QtWidgets.QToolBar=None,
-        menu: QtWidgets.QMenu=None):
+    def set_central_widget(self, symbolic_name: str):
         """
-        Podesava centralni widget glavnog prozora, ukoliko widget dostavi i svoj toolbar i meni
-        oni se dodaju u glavni prozor aplikacije.
+        Podesava centralni widget glavnog prozora, na osnovu simboličkog imena se dobija plugin
+        koji će se smestiti u centralni deo glavnog prozora.
 
-        :param widget: widget koji ce biti smesten kao centralni u glavnom prozoru
-        :type widget: QWidget
-        :param tool_bar: toolbar centralnog widgeta koji je plugin (default: None)
-        :type tool_bar: QToolbar
-        :param menu: meni centralnog widgeta koji je plugin (default: None)
-        :type menu: QMenu
+        :param symbolic_name: Simbolicko ime plugina koji želimo da instanciramo.
         """
-        self.setCentralWidget(widget)
-        self.tool_bar.addActions(tool_bar.actions()) if tool_bar is not None else None
-        self.menu_bar.addMenu(menu) if menu is not None else None
+        # try:
 
+        plugin = self.plugin_service.get_by_symbolic_name(symbolic_name)
+        widgets = plugin.get_widget()
+        self.setCentralWidget(widgets[0])
+        if widgets[1] is not None:
+            self.tool_bar.addSeparator()
+            self.tool_bar.addActions(widgets[1].actions())
+        self.menu_bar.addMenu(widget[2]) if widgets[2] is not None else None
+        # except IndexError:
+        #     print("Ne postoji ni jedan plugin sa zadatim simboličkim imenom!")

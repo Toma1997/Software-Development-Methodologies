@@ -33,6 +33,8 @@ class PluginDialog(QtWidgets.QDialog):
         self.plugin_dialog_layout = QtWidgets.QVBoxLayout()
 
         self.plugins_table = QtWidgets.QTableWidget(self)
+        self.plugins_table.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectionBehavior.SelectRows)
+        self.plugins_table.setSelectionMode(QtWidgets.QAbstractItemView.SingleSelection)
 
         self.plugin_options_layout.addWidget(self.set_button)
         self.plugin_options_layout.addWidget(self.uninstall_button)
@@ -58,8 +60,12 @@ class PluginDialog(QtWidgets.QDialog):
         Metoda koja se poziva kada se pritisne na dugme set central.
         """
         # FIXME: dobavi selekciju i aktiviraj widget
-        self.parent().set_central_widget(self.parent().plugin_service.get_by_symbolic_name("rs.ac.singidunum.imenik").get_widget())
-
+        selected_items = self.plugins_table.selectedItems()
+        if len(selected_items) == 0:
+            return
+        symbolic_name = selected_items[3].text()
+        self.parent().set_central_widget(symbolic_name)
+        
     def on_accept(self):
         """
         Metoda koja se poziva na prihvatanje dijaloga.

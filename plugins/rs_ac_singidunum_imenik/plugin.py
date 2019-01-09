@@ -18,12 +18,9 @@ class Main(Plugin):
     def get_widget(self, parent=None):
         """
         Ova metoda vraca konkretni widget koji ce biti smesten u centralni deo aplikacije i njenog 
-        glavnog prozora.
-
-        :param spec: specifikacija metapodataka o pluginu.
-        :type spec: dict
-        :returns: ContactWidget
+        glavnog prozora. Može da vrati toolbar, kao i meni, koji će biti smešten u samu aplikaciju.
+        
+        :param parent: bi trebao da bude widget u koji će se smestiti ovaj koji naš plugin omogućava.
+        :returns: QWidget, QToolbar, QMenu
         """
-        # TODO: Dodati da svaki plugin ima ovu metodu. Ova metoda bi trebala da vraca svoj meni i svoj toolbar
-        # FIXME: Uraditi u sledecoj verziji (u XV nedelji nastave)
-        return ContactsWidget(parent)
+        return ContactsWidget(parent), None, None
